@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BiT | Week 12</title>
+  </head>
+  <body>
+    <h1>BiT | Week 12</h1>
+    <button type="button" class="reload">Reload</button>
+    <button type="button" class="redirect">Go to another page</button>
+    <script>
+      "use strict";
+      // On-page Script
+      // ● Create a script tag on the page
+      // ● It should contain code that console.log’s some text
+      // ● Wrap the previous script in a function
+      // ● When page is loaded, trigger the function
+      function sayWhat(what) {
+        console.log(what);
+      }
+      // before fully load
+      document.addEventListener("DOMContentLoaded", sayWhat("Hello, World!"));
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>
