@@ -1,4 +1,4 @@
-"use script";
+"use strict";
 
 // External JS Files
 // ● Include an external JS script on the page.
