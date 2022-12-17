@@ -239,3 +239,59 @@ const printCurrentDate = function () {
 console.log(getCurrentDate());
 printCurrentTime();
 printCurrentDate();
+
+// BUILT IN OBJECTS
+// Try to use built-in object methods to solve some of the problems here
+console.log("============== Built in objects ============");
+// 1. Write a functional expression that duplicates each element of a given array.
+// Input: [2, 4, 7, 11, -2, 1]
+// Output: [2, 2, 4, 4, 7, 7, 11, 11, -2, -2, 1, 1]
+const duplicateElements = function (arr) {
+  const duplicateArr = arr.flatMap(el => [el, el]);
+  console.log(duplicateArr);
+  return duplicateArr;
+};
+duplicateElements([2, 4, 7, 11, -2, 1]);
+
+// 2. Write a functional expression that removes all duplicates in a given array.
+// Input: [8, 13, 8, 9, 12, 8, 1, 1, 4, 13]
+// Output: [1, 4, 8, 9, 12, 13]
+const removeDuplicates = function (arr) {
+  const arrUnique = [...new Set(arr)];
+  console.log(arrUnique);
+  return arrUnique;
+};
+removeDuplicates([8, 13, 8, 9, 12, 8, 1, 1, 4, 13]);
+
+// 3.
+// a. Write a function that checks if a given array has odd number of elements.
+// Input: [1, 2, 9, 2, 1]
+// Output: true
+// b. Write a function that counts the number of elements less than the middle element. If the given array has an even number of elements, print out an error message.
+// Input: [-1, 8.1, 3, 6, 2.3, 44, 2.11]
+// Output: 4
+
+// a
+const isOddArr = function (arr) {
+  if (arr.length % 2 !== 0) return true;
+  else return false;
+};
+console.log(isOddArr([1, 2, 9, 2]));
+
+// b
+const countLessThanMid = function (arr) {
+  const isOdd = isOddArr(arr);
+  if (isOdd) {
+    const lessThanMid = Math.trunc(arr.length / 2) + 1;
+    console.log(lessThanMid);
+    return lessThanMid;
+  } else {
+    console.log("Error message, array is even");
+    return false;
+  }
+};
+countLessThanMid([-1, 8.1, 3, 6, 2.3, 44, 2.11]);
+
+// 4. Write a function that finds the smallest element of a given array. The function should return an object that contains the smallest value and its last position in the array.
+// Input: [1, 4, -2, 11, 8, 1, -2, 3]
+// Output: { minValue: -2, minLastIndex: 6 }
