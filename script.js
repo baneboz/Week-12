@@ -295,3 +295,236 @@ countLessThanMid([-1, 8.1, 3, 6, 2.3, 44, 2.11]);
 // 4. Write a function that finds the smallest element of a given array. The function should return an object that contains the smallest value and its last position in the array.
 // Input: [1, 4, -2, 11, 8, 1, -2, 3]
 // Output: { minValue: -2, minLastIndex: 6 }
+const getSmallest = function (arr) {
+  const smallest = {
+    minValue: 0,
+    minLastIndex: 0,
+  };
+  smallest.minValue = Math.min(...arr);
+  smallest.minLastIndex = arr.lastIndexOf(smallest.minValue);
+  return smallest;
+};
+console.log(getSmallest([1, 4, -2, 11, 8, 1, -2, 3]));
+
+// 5.
+// a. Write a function that finds all the elements in a given array less than a given element.
+// Input: [2, 3, 8, -2, 11, 4], 6
+// Output: [2, 3, -2, 4]
+const getSmaller = function (arr, limit) {
+  const result = arr.filter(function (el) {
+    return el < limit;
+  });
+  return result;
+};
+console.log(getSmaller([2, 3, 8, -2, 11, 4], 6));
+
+// b. Write a function that finds all the elements in a given array that start with the “pro” substring. The function should be case insensitive.
+// Input: [’JavaScript’, ’Programming’, ’fun’, ’product’]
+// Output: [’Programming’, ‘product’]
+const getPro = function (arr) {
+  const lowerArr = arr.filter(function (el) {
+    return el.toLowerCase().startsWith("pro");
+  });
+  return lowerArr;
+};
+console.log(getPro(["JavaScript", "Programming", "fun", "product"]));
+
+// c. Write a function that expects an array and a callback function that filters out some of the elements. Use functions defined in a) or b) to test it.
+const filterFunc = function (arr, callbackFn) {
+  const filteredArr = callbackFn(arr);
+  console.log(filteredArr);
+};
+filterFunc(
+  ["Programming", "Proffesional", "Amateur", "fun", "product"],
+  getPro
+);
+
+// 6.
+// a. Write a list (array) of products you usually buy in the supermarket. Write a price and name for each product.
+const shoppingList = [
+  { name: "apples", price: 100 },
+  { name: "milk", price: 80 },
+  { name: "bananas", price: 150 },
+  { name: "eggs", price: 120 },
+  { name: "potato", price: 140 },
+];
+
+// b. Write a function that calculates the total price of your shopping list.
+const calcTotalPrice = function (list) {
+  const sum = list.reduce(function (acc, el) {
+    return acc + el.price;
+  }, 0);
+  return sum;
+};
+console.log(calcTotalPrice(shoppingList));
+
+// c. Write a function that calculates the average product price of your shopping list. Print this value with the precision of three decimals.
+const calcAvgPrice = function (list) {
+  const avgPrice = calcTotalPrice(list) / list.length;
+  // console.log(Math.round(avgPrice * 1000) / 1000); // only if necessary
+  console.log(avgPrice.toFixed(3)); // always on 3 dec
+  return avgPrice;
+};
+calcAvgPrice(shoppingList);
+
+// d. Write a function that prints out the name of the most expensive product on your shopping list. Write the name in uppercase.
+const getMostExpensive = function (list) {
+  let mostExpPrice = list[0].price;
+  let mostExpName = list[0].name;
+
+  list.forEach(function (el) {
+    if (el.price > mostExpPrice) {
+      mostExpPrice = el.price;
+      mostExpName = el.name;
+    }
+  });
+  console.log(mostExpName.toUpperCase());
+  return mostExpName;
+};
+getMostExpensive(shoppingList);
+
+// 7.
+// a. Write a function that checks if a given string is written in all capitals.
+const isAllCapital = function (str) {
+  const regexAllCaps = /^[A-Z]*$/;
+  if (regexAllCaps.test(str)) return true;
+  else return false;
+};
+
+// b. Write a function that checks if a given string contains any digits.
+const isContainDigits = function (str) {
+  const regexDigits = /[0-9]/;
+  if (regexDigits.test(str)) return true;
+  else return false;
+};
+
+// c. Write a function that checks if a given string is a valid hexadecimal color.
+const isHex = function (str) {
+  const regexHex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+  if (regexHex.test(str)) return true;
+  else return false;
+};
+
+// d. Write a function that checks if a given number belongs to the interval from 1900 to 2018.
+const isBetween1900and2018 = function (num) {
+  if (num >= 1900 && num <= 2018) return true;
+  else return false;
+};
+
+// e. Write a function named validator that returns an object with properties stringValidator, passwordValidator, colorValidator, and yearValidator referencing the functions from a) to d).
+const validator = function () {
+  const validatorObj = {
+    isAllCapital,
+    isContainDigits,
+    isHex,
+    isBetween1900and2018,
+  };
+  return validatorObj;
+};
+const validate = validator();
+console.log(validate.isHex("#090099"));
+
+// 8. Write a function that calculates a number of days to your birthday.
+// Input: 25 February
+// Output: 5 days
+
+const daysUntilBirthday = function (birthday) {
+  const now = Date.now();
+
+  let thisYear = new Date().getFullYear();
+  let birthdayDate = new Date(birthday + thisYear).getTime();
+
+  if (Math.round((now - birthdayDate) / (1000 * 60 * 60 * 24)) === 0) {
+    console.log("Today is your birthday!");
+    return;
+  }
+  if (birthdayDate > now) {
+    console.log(
+      `${Math.round((birthdayDate - now) / (1000 * 60 * 60 * 24))} days!`
+    );
+  }
+
+  if (birthdayDate < now) {
+    // if passed for next year
+    // thisYear++;
+    // birthdayDate = new Date(birthday + thisYear).getTime();
+
+    // if passed
+    console.log(
+      `Your birthday was ${Math.abs(
+        Math.round((birthdayDate - now) / (1000 * 60 * 60 * 24))
+      )} days ago!`
+    );
+  }
+};
+
+daysUntilBirthday("19 December");
+
+// 9. Write a function that for a given departure and arrival time calculates the time the trip takes.
+// Input: 8:22:13 11:43:22
+// Output: 3 hours 21 minutes 9 seconds
+const calcTripTime = function (departure, arrival) {
+  const departureTime = new Date("12/20/2022 " + departure).getTime();
+  const arrivalTime = new Date("12/20/2022 " + arrival).getTime();
+
+  let tripTimeMs = arrivalTime - departureTime;
+
+  if (tripTimeMs < 0) {
+    tripTimeMs += 86400000;
+  }
+
+  let tripTimeSc = Math.round(tripTimeMs / 1000);
+  let tripTimeMn = Math.round(tripTimeSc / 60);
+  let tripTimeHr = Math.round(tripTimeMn / 60);
+
+  tripTimeSc = tripTimeSc % 60;
+  tripTimeMn = tripTimeMn % 60;
+
+  console.log(
+    `${tripTimeHr} hours ${tripTimeMn} minutes ${tripTimeSc} seconds`
+  );
+};
+calcTripTime("18:22:13", "11:43:22");
+
+// 10.
+// a. Write a constructor function that creates points in space. Each point in space has its own x, y, and z coordinate. For example, (3, 5, 1) can be a point in space.
+// b. Write a function that calculates the distance between two points in the space.
+
+// 11.
+// a. Write a function that generates a random integer value between 5 and 20.
+const getBetween5and20 = function () {
+  return Math.trunc(Math.random() * (21 - 5) + 5);
+};
+getBetween5and20();
+
+// b. Write a function that generates a random integer value between 50 and 100.
+const getBetween50and100 = function () {
+  return Math.trunc(Math.random() * (101 - 50) + 50);
+};
+getBetween50and100();
+
+// c. Write a function which expects a number and a callback generator function and returns an array of numbers produced by the generator function.
+const generateArr = function (num, callbackFn) {
+  const result = [];
+
+  for (let i = 0; i < num; i++) {
+    result.push(callbackFn());
+  }
+
+  console.log(result);
+  return result;
+};
+generateArr(13, getBetween50and100);
+
+// 12. Write a function that shuffles the elements of a given array.
+// Input: [3, 6, 11, 2, 9, 1]
+// Output: [6, 2, 9, 1, 3, 11] (it can be any random permutation of the given array)
+function shuffleArr(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  console.log(arr);
+  return arr;
+}
+shuffleArr([3, 6, 11, 2, 9, 1]);
